@@ -4,5 +4,8 @@
   "description": "",
   "scripts": {},
   "author": "@blakemdev",
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "lerna": "^3.22.1"
+  }
 }
