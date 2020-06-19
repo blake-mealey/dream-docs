@@ -1,1 +1,6 @@
+# node
 node_modules
+
+# gatsby
+.cache
+public

@@ -1,0 +1,29 @@
+{
+  "private": true,
+  "name": "site",
+  "version": "0.0.0",
+  "description": "> TODO: description",
+  "author": "Blake Mealey <blakemealey@gmail.com>",
+  "homepage": "https://github.com/blake-mealey/dream-docs#readme",
+  "license": "MIT",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/blake-mealey/dream-docs.git"
+  },
+  "scripts": {
+    "start": "npm run develop",
+    "build": "gatsby build",
+    "develop": "gatsby develop",
+    "clean": "gatsby clean"
+  },
+  "bugs": {
+    "url": "https://github.com/blake-mealey/dream-docs/issues"
+  },
+  "dependencies": {
+    "gatsby": "^2.23.4",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "gatsby-theme-dream-docs": "^0.0.0"
+  }
+}
