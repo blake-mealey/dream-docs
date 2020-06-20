@@ -1,9 +1,22 @@
 import React from 'react';
 /** @jsx jsx */
 import { jsx, Box, Heading, Flex, NavLink } from 'theme-ui';
-import { Link } from 'gatsby';
+import { Link, useStaticQuery, graphql } from 'gatsby';
 
 const LayoutTemplate = ({ children }) => {
+  const result = useStaticQuery(graphql`
+    {
+      allGuide {
+        nodes {
+          slug
+          title
+        }
+      }
+    }
+  `);
+
+  const guides = result.allGuide.nodes;
+
   return (
     <>
       <Flex
@@ -13,21 +26,14 @@ const LayoutTemplate = ({ children }) => {
         <Box p={2}>
           <Heading as="h1">Title</Heading>
         </Box>
-        <Box p={2}>
-          <NavLink to="/guides" as={Link}>
-            Guides
-          </NavLink>
-        </Box>
-        <Box p={2}>
-          <NavLink to="/references/api" as={Link}>
-            API Reference
-          </NavLink>
-        </Box>
-        <Box p={2}>
-          <NavLink to="/references/sdk" as={Link}>
-            SDK Reference
-          </NavLink>
-        </Box>
+
+        {guides.map((guide) => (
+          <Box p={2}>
+            <NavLink to={guide.slug} as={Link}>
+              {guide.title}
+            </NavLink>
+          </Box>
+        ))}
       </Flex>
 
       {children}

@@ -1,11 +1,14 @@
 import React from 'react';
 import LayoutTemplate from './layout';
+import { MDXRenderer } from 'gatsby-plugin-mdx';
 
-const GuideTemplate = ({ children }) => {
+const GuideTemplate = ({ pageContext }) => {
+  const { mdx } = pageContext;
+
   return (
     <LayoutTemplate>
       This is a guide!
-      {children}
+      <MDXRenderer>{mdx.body}</MDXRenderer>
     </LayoutTemplate>
   );
 };

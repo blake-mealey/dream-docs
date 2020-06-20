@@ -5,8 +5,8 @@ module.exports = {
       options: {
         guides: [
           {
-            title: 'Guides',
-            path: 'content/guides',
+            title: 'Guide',
+            path: 'content/guide',
           },
         ],
       },
