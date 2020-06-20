@@ -31,7 +31,10 @@ const GuideTemplate = ({ pageContext }) => {
   return (
     <LayoutTemplate>
       <Flex>
-        <Flex p={3} sx={{ flexDirection: 'column', width: '256px' }}>
+        <Flex
+          p={3}
+          sx={{ flexDirection: 'column', width: '256px', minWidth: '256px' }}
+        >
           {articles.map((article) => (
             <NavLink
               key={article.id}
@@ -43,7 +46,7 @@ const GuideTemplate = ({ pageContext }) => {
             </NavLink>
           ))}
         </Flex>
-        <Box>
+        <Box sx={{ maxWidth: '800px', width: '800px', margin: '0 auto' }}>
           <MDXRenderer>{mdx.body}</MDXRenderer>
         </Box>
       </Flex>
