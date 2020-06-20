@@ -8,6 +8,7 @@ const LayoutTemplate = ({ children }) => {
     {
       allGuide {
         nodes {
+          id
           slug
           title
         }
@@ -28,7 +29,7 @@ const LayoutTemplate = ({ children }) => {
         </Box>
 
         {guides.map((guide) => (
-          <Box p={2}>
+          <Box key={guide.id} p={2}>
             <NavLink to={guide.slug} as={Link}>
               {guide.title}
             </NavLink>

@@ -8,6 +8,7 @@ exports.sourceNodes = ({ actions }) => {
       title: String!
     }
     type GuideArticle implements Node {
+      slug: String!
       title: String
     }
   `);
@@ -70,11 +71,16 @@ exports.createPages = async (
 
   const guideTemplate = require.resolve(`./src/templates/guide.js`);
 
+  function getGuideId(guide) {
+    return createNodeId(`Guide:${guide.path}`);
+  }
+
   files.forEach((file) => {
     const guide = getGuideForFile(guides, file);
 
     if (guide) {
       const name = path.basename(file.fileAbsolutePath, '.mdx');
+      const slug = joinSlugs(basePath, slugify(guide.title), slugify(name));
 
       const nodeId = createNodeId(`GuideArticle:${file.id}`);
       createNode({
@@ -85,15 +91,18 @@ exports.createPages = async (
           contentDigest: file.internal.contentDigest,
         },
         title: file.frontmatter.title,
+        slug,
       });
 
       guide.articles = guide.articles ? [...guide.articles, nodeId] : [nodeId];
 
       createPage({
-        path: joinSlugs(basePath, slugify(guide.title), slugify(name)),
+        path: slug,
         component: guideTemplate,
         context: {
           mdx: file,
+          articleId: nodeId,
+          guideId: getGuideId(guide),
         },
       });
     }
@@ -101,7 +110,7 @@ exports.createPages = async (
 
   guides.forEach((guide) => {
     createNode({
-      id: createNodeId(`Guide:${guide.path}`),
+      id: getGuideId(guide),
       title: guide.title,
       slug: joinSlugs(basePath, slugify(guide.title)),
       children: guide.articles,
