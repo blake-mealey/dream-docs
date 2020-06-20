@@ -21,9 +21,9 @@
     "url": "https://github.com/blake-mealey/dream-docs/issues"
   },
   "dependencies": {
-    "gatsby": "^2.23.4",
+    "gatsby": "^2.23.6",
+    "gatsby-theme-dream-docs": "*",
     "react": "^16.13.1",
-    "react-dom": "^16.13.1",
-    "gatsby-theme-dream-docs": "^0.0.0"
+    "react-dom": "^16.13.1"
   }
 }

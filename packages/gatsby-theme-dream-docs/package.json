@@ -20,13 +20,22 @@
     "url": "https://github.com/blake-mealey/dream-docs/issues"
   },
   "peerDependencies": {
-    "gatsby": "^2.23.4",
+    "gatsby": "^2.23.6",
     "react": "^16.13.1",
     "react-dom": "^16.13.1"
   },
   "devDependencies": {
-    "gatsby": "^2.23.4",
+    "gatsby": "^2.23.6",
     "react": "^16.13.1",
     "react-dom": "^16.13.1"
+  },
+  "dependencies": {
+    "@theme-ui/presets": "^0.3.0",
+    "case": "^1.6.3",
+    "gatsby-plugin-mdx": "^1.2.16",
+    "gatsby-plugin-page-creator": "^2.3.10",
+    "gatsby-plugin-theme-ui": "^0.3.0",
+    "gatsby-source-filesystem": "^2.3.12",
+    "theme-ui": "^0.3.1"
   }
 }
