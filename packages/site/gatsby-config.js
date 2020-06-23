@@ -8,6 +8,10 @@ module.exports = {
             title: 'Guide',
             path: 'content/guide',
           },
+          {
+            title: 'More',
+            path: 'content/guide2',
+          },
         ],
       },
     },
