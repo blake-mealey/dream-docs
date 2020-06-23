@@ -65,22 +65,24 @@ exports.createPages = async (
   options
 ) => {
   const basePath = options.basePath || '/';
-  const guides = options.guides || [];
+  const guides = (options.guides || []).map((guide) => ({
+    ...guide,
+    id: createNodeId(`Guide:${guide.path}`),
+    slug: joinSlugs(basePath, slugify(guide.title)),
+  }));
 
   const files = await getFiles(graphql);
 
   const guideTemplate = require.resolve(`./src/templates/guide.js`);
 
-  function getGuideId(guide) {
-    return createNodeId(`Guide:${guide.path}`);
-  }
-
   files.forEach((file) => {
     const guide = getGuideForFile(guides, file);
 
     if (guide) {
+      const isFirst = !guide.articles;
+
       const name = path.basename(file.fileAbsolutePath, '.mdx');
-      const slug = joinSlugs(basePath, slugify(guide.title), slugify(name));
+      const slug = isFirst ? guide.slug : joinSlugs(guide.slug, slugify(name));
 
       const nodeId = createNodeId(`GuideArticle:${file.id}`);
       createNode({
@@ -102,7 +104,7 @@ exports.createPages = async (
         context: {
           mdx: file,
           articleId: nodeId,
-          guideId: getGuideId(guide),
+          guideId: guide.id,
         },
       });
     }
@@ -110,9 +112,9 @@ exports.createPages = async (
 
   guides.forEach((guide) => {
     createNode({
-      id: getGuideId(guide),
+      id: guide.id,
       title: guide.title,
-      slug: joinSlugs(basePath, slugify(guide.title)),
+      slug: guide.slug,
       children: guide.articles,
       internal: {
         type: 'Guide',
