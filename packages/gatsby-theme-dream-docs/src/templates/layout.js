@@ -13,10 +13,18 @@ const LayoutTemplate = ({ children, activeGuide }) => {
           title
         }
       }
+      allOpenApi {
+        nodes {
+          id
+          slug
+          title
+        }
+      }
     }
   `);
 
   const guides = result.allGuide.nodes;
+  const openApis = result.allOpenApi.nodes;
 
   return (
     <>
@@ -36,6 +44,14 @@ const LayoutTemplate = ({ children, activeGuide }) => {
               className={activeGuide === guide.id ? 'active' : ''}
             >
               {guide.title}
+            </NavLink>
+          </Box>
+        ))}
+
+        {openApis.map((openApi) => (
+          <Box key={openApi.id} p={2}>
+            <NavLink to={openApi.slug} as={Link}>
+              {openApi.title}
             </NavLink>
           </Box>
         ))}

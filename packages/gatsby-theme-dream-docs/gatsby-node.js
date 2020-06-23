@@ -11,6 +11,10 @@ exports.sourceNodes = ({ actions }) => {
       slug: String!
       title: String
     }
+    type OpenApi implements Node {
+      slug: String!
+      title: String
+    }
   `);
 };
 
@@ -70,10 +74,12 @@ exports.createPages = async (
     id: createNodeId(`Guide:${guide.path}`),
     slug: joinSlugs(basePath, slugify(guide.title)),
   }));
+  const openApis = options.openApis || [];
 
   const files = await getFiles(graphql);
 
   const guideTemplate = require.resolve(`./src/templates/guide.js`);
+  const openApiTemplate = require.resolve(`./src/templates/open-api.js`);
 
   files.forEach((file) => {
     const guide = getGuideForFile(guides, file);
@@ -119,6 +125,28 @@ exports.createPages = async (
       internal: {
         type: 'Guide',
         contentDigest: createContentDigest(JSON.stringify(guide)),
+      },
+    });
+  });
+
+  openApis.forEach((openApi) => {
+    const slug = joinSlugs(basePath, slugify(openApi.title));
+
+    createNode({
+      id: createNodeId(`OpenApi:${openApi.title}`),
+      title: openApi.title,
+      slug: slug,
+      internal: {
+        type: 'OpenApi',
+        contentDigest: createContentDigest(JSON.stringify(openApi)),
+      },
+    });
+
+    createPage({
+      path: slug,
+      component: openApiTemplate,
+      context: {
+        openApi,
       },
     });
   });
