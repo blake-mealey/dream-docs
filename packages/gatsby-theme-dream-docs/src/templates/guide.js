@@ -29,7 +29,7 @@ const GuideTemplate = ({ pageContext }) => {
   );
 
   return (
-    <LayoutTemplate>
+    <LayoutTemplate activeGuide={guideId}>
       <Flex>
         <Flex
           p={3}

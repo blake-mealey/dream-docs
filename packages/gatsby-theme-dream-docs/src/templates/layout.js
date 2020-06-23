@@ -3,7 +3,7 @@ import React from 'react';
 import { jsx, Box, Heading, Flex, NavLink } from 'theme-ui';
 import { Link, useStaticQuery, graphql } from 'gatsby';
 
-const LayoutTemplate = ({ children }) => {
+const LayoutTemplate = ({ children, activeGuide }) => {
   const result = useStaticQuery(graphql`
     {
       allGuide {
@@ -30,7 +30,11 @@ const LayoutTemplate = ({ children }) => {
 
         {guides.map((guide) => (
           <Box key={guide.id} p={2}>
-            <NavLink to={guide.slug} as={Link}>
+            <NavLink
+              to={guide.slug}
+              as={Link}
+              className={activeGuide === guide.id ? 'active' : ''}
+            >
               {guide.title}
             </NavLink>
           </Box>
